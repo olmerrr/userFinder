@@ -3,11 +3,11 @@ import styles from './Button.module.scss';
 
 interface ButtonProps {
   children: string,
-  onClick?: React.MouseEventHandler<HTMLDivElement>
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export const Button = ({children, onClick }: ButtonProps) => (
-  <div className={styles.button} onClick={onClick}>
+  <button className={styles.button} onClick={onClick}>
     { children }
-  </div>
+  </button>
 );
