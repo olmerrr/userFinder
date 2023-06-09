@@ -1,27 +1,29 @@
+import React from "react";
+import {Button} from "../Button";
+
 import {ReactComponent as SearchIcon} from "assets/icon-search.svg"
 import styles from './Search.module.scss';
-import React, {FormEventHandler, useRef} from "react";
-import {Button} from "../Button";
 
 interface SearchProps {
   hasError: boolean,
   onSubmit: (text: string) => void
 }
 
+type FormFields = {
+  userName: HTMLInputElement
+}
 export const Search = ({hasError, onSubmit}: SearchProps) => {
-  const searchRef = useRef<HTMLInputElement | null>(null);
-  const handleSubmit = (event: React.FormEvent) => {
+  // form'a всегда знает о своих инпутах если у них есть атрибут name
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement & FormFields>) => {
     event.preventDefault();
-    const text = searchRef.current?.value || "";
-    console.log(searchRef.current)
+
+    const text = event.currentTarget.userName.value || "";
     if (text) {
       onSubmit(text);
-
-      if (searchRef.current){
-        searchRef.current.value = "";
+      event.currentTarget.reset();
       }
     }
-  }
+
   return (
     <form onSubmit={ handleSubmit } autoComplete="off">
       <div className={styles.search}>
@@ -35,7 +37,6 @@ export const Search = ({hasError, onSubmit}: SearchProps) => {
             id="search"
             name="userName"
             placeholder="Search user on GitHub"
-            ref={searchRef}
           />
         {hasError && (
           <div className={styles.error}>No result</div>
