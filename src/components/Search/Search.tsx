@@ -16,8 +16,8 @@ export const Search = ({hasError, onSubmit}: SearchProps) => {
   // form'a всегда знает о своих инпутах если у них есть атрибут name
   const handleSubmit = (event: React.FormEvent<HTMLFormElement & FormFields>) => {
     event.preventDefault();
-
     const text = event.currentTarget.userName.value || "";
+
     if (text) {
       onSubmit(text);
       event.currentTarget.reset();
@@ -25,7 +25,7 @@ export const Search = ({hasError, onSubmit}: SearchProps) => {
     }
 
   return (
-    <form onSubmit={ handleSubmit } autoComplete="off">
+    <form onSubmit={handleSubmit} autoComplete="off">
       <div className={styles.search}>
         <label htmlFor="search" className={styles.label}>
           <SearchIcon/>
